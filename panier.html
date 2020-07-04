@@ -12,7 +12,7 @@
     </head>
     <body>
         <header class=" ">
-            <div class="row px-2">
+            <div class="row ">
                 <nav class=" col navbar navbar-expand-lg  bg-success text-white .navbar-light">
                     <h2>
                         Oricono
@@ -37,6 +37,50 @@
                 </nav>
           
         </header>
+        <main>
+            <h1 class="text-center">
+                Mon panier.
+            </h1>
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <table class="table-bordered" >
+                        <tr> 
+                            <td class="">Produit</td>
+                            <td>Quantité</td>
+                            <td>Prix</td>
+                        </tr>
+                        <tr> 
+                            <td ></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr> 
+                            <td ></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr> 
+                            <td>Prix total</td>
+                            <td colspan="2"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-6  shadow-lg">
+                    <p>Formulaire d'envoie</p>
+                    <form method="POST">
+                        <p>
+                            <label>Votre nom </label>:<input type="text" name="name" placeholder="Patrick Toutlemonde" required><br>                            
+                            <label>adresse mail </label>:<input type="email" name="mail" placeholder="exemple@hotmail.fr" required><br>
+                            <label>Votre numéro de téléphone </label>:<input type="text" name="numtel" placeholder="0123456789"pattern="[0-9]{10,10}" required><br>
+                            <label>Votre adresse postale </label>:<input type="text" name="adress" placeholder="42 rue de la caisse, 64100 Bayonne" size="40" required><br>
+                            <input type="button" value="Valider la commande">
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </main>
         <footer>
 
         </footer>
