@@ -9,7 +9,7 @@ async function surligne(champ, erreur) //fonction de vérification validité du 
       champ.style.backgroundColor = "";
 }
 
-async function verifNom(name) //vérification validité du champ nom//
+ function verifNom(name) //vérification validité du champ nom//
 {   
     var nom = /^[a-zA-Z]{2,}/;
     if(!nom.test(name.value))
@@ -24,7 +24,7 @@ async function verifNom(name) //vérification validité du champ nom//
    }
 }
 
-async function verifMail(mail) //vérification validité du champ email//
+ function verifMail(mail) //vérification validité du champ email//
 {
    var regex = /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
    if(!regex.test(mail.value))
@@ -39,7 +39,7 @@ async function verifMail(mail) //vérification validité du champ email//
    }
 }
 
-async function verifTel(numtel) //vérification validité du champ numéro de téléphone//
+ function verifTel(numtel) //vérification validité du champ numéro de téléphone//
 {
     var tel = /^[0-9]{10,10}/;
    if(!tel.test(numtel.value))
@@ -54,7 +54,7 @@ async function verifTel(numtel) //vérification validité du champ numéro de t�
    }
 }
 
-async function verifAdress(adress) //vérification validité du champ adresse postale//
+ function verifAdress(adress) //vérification validité du champ adresse postale//
 {
     var adresse = /^[a-zA-Z0-9._-]{2,}/;
     if(!adresse.test(adress.value))
@@ -69,24 +69,39 @@ async function verifAdress(adress) //vérification validité du champ adresse po
    }
 }
 
-    function verif_panier(f) //fonction de déverouillage du bouton submit si tout les champs valides//
+ function verifVille(ville) //vérification validité du champ ville//
 {
-    
-    var nomOk = verifNom(f.name);
-    var mailOk = verifMail(f.mail);
-    var telOk = verifTel(f.numtel);
-    var adressOk = verifAdress(f.adress);
-    
-    if(nomOk && mailOk && telOk && adressOk)
-    {
-        btn.removeAttribute("disabled");
-        return true;
-    }
-    else
-    {
-        btn.setAttribute("disabled","true")
-        return false;
-    }
-    
+    var city = /^[a-zA-Z0-9._-]{2,}/;
+    if(!city.test(ville.value))
+   {
+      surligne(ville, true);
+      return false;
+   }
+   else
+   {
+      surligne(ville, false);
+      return true;
+   }
+}
+
+function verif_panier(f) //fonction de déverouillage du bouton submit si tout les champs valides//
+{    
+   var nomOk = verifNom(f.name);
+   var mailOk = verifMail(f.mail);
+   var telOk = verifTel(f.numtel);
+   var adressOk = verifAdress(f.adress);
+   var cityOk = verifVille(f.ville);
+   
+   if(nomOk && mailOk && telOk && adressOk && cityOk)
+   {
+      btn.removeAttribute("disabled");
+      return true;
+   }
+   else
+   {
+      btn.setAttribute("disabled","true")
+      return false;
+   }
+   
 }
 
