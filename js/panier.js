@@ -1,7 +1,7 @@
 
 btn = document.getElementById("submitpanier");
 
-async function surligne(champ, erreur)
+async function surligne(champ, erreur) //fonction de vérification validité du champ//
 {
    if(erreur)
       champ.style.backgroundColor = "#fba";
@@ -9,7 +9,7 @@ async function surligne(champ, erreur)
       champ.style.backgroundColor = "";
 }
 
-async function verifNom(name)
+async function verifNom(name) //vérification validité du champ nom//
 {   
     var nom = /^[a-zA-Z]{2,}/;
     if(!nom.test(name.value))
@@ -24,7 +24,7 @@ async function verifNom(name)
    }
 }
 
-async function verifMail(mail)
+async function verifMail(mail) //vérification validité du champ email//
 {
    var regex = /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
    if(!regex.test(mail.value))
@@ -39,7 +39,7 @@ async function verifMail(mail)
    }
 }
 
-async function verifTel(numtel)
+async function verifTel(numtel) //vérification validité du champ numéro de téléphone//
 {
     var tel = /^[0-9]{10,10}/;
    if(!tel.test(numtel.value))
@@ -54,7 +54,7 @@ async function verifTel(numtel)
    }
 }
 
-async function verifAdress(adress)
+async function verifAdress(adress) //vérification validité du champ adresse postale//
 {
     var adresse = /^[a-zA-Z0-9._-]{2,}/;
     if(!adresse.test(adress.value))
@@ -69,7 +69,7 @@ async function verifAdress(adress)
    }
 }
 
-    function verif_panier(f)
+    function verif_panier(f) //fonction de déverouillage du bouton submit si tout les champs valides//
 {
     
     var nomOk = verifNom(f.name);
