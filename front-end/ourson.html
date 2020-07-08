@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="keywords" content="">
         <meta name="description" content="">
-        <link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="./css/style.css">
 
         <title>Oricono - Les ourson</title>
@@ -39,46 +39,32 @@
         </header>
 
         <main>
-            <div class="row justify-content-center">
-                <div class="col-8 col-lg-10 ">
-                    <div class="row justify-content-center">
-                        <h1>
-                            L'ourson en peluche
-                        </h1>
-                    </div>
-                    <div class="row shadow-lg ">
-                        <div  class="col-10 col-md-6 my-3" >
-                            <img id="image" src="./images/teddy_1b.jpg" alt="ourson en peluche">
-                            
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <form action="">
-                                <p> Ourson en peluche fait main, nourrit au grand air.
-                                    <label for="couleur">
-                                        Quelle Modèle désirez-vous ?
-                                    </label><br>
-                                    <select name="couleur" id="listcouleur" onchange="changeImage()">
-                                        <option value="1">Brun foncé</option>
-                                        <option value="2">Beige</option>
-                                        <option value="3">Parent</option>
-                                        <option value="4">En T-shirt</option>
-                                        <option value="5">Gris</option>
-                                    </select>
-                                </p>
-                                <input type="button" value="Ajouter au panier">
-                            </form>                           
-                        </div>
-                    </div>                    
+        <div class="row justify-content-center">  
+            <div class="col-12 col-md-6" id='shit'>
+
+            </div> 
+            <div class="col-12 col-md-6" >
+               <div >
+                   <form action="">
+                        <p> Ourson en peluche fait main, nourrit au grand air.
+                            <label for="couleur">Quelle Modèle désirez-vous ? </label>
+                        </p>
+                            <select name="couleur" id="listcouleur">
+                            </select>                  
+                     
+                        <input type="button" value="Ajouter au panier">
+                    </form>                         
                 </div>
-            </div>
+
+            </div>                           
+        </div>            
         </main>
 
         <footer>
 
         </footer>
-        <script src="jquery-3.5.1.min.js"></script>
-        <script src="./bootstrap/js/bootstrap.js"></script>
-        <script src="./bootstrap/js/blocs.js"></script>
+        <script src="../jquery-3.5.1.min.js"></script>
+        <script src="../bootstrap/js/bootstrap.js"></script>
         <script src="./js/ourson.js"></script>
     </body>
 </html>
