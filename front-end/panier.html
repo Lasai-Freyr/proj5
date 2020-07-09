@@ -43,27 +43,9 @@
             </h1>
             <div class="row justify-content-center">
                 <div class="col-10 justify-content-center ">
-                    <table class="table-bordered " >
-                        <tr> 
-                            <td class="">Produit</td>
-                            <td>Quantité</td>
-                            <td>Prix</td>
-                        </tr>
-                        <tr> 
-                            <td ></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr> 
-                            <td ></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr> 
-                            <td colspan="2"> Total</td>
-                            <td></td>
-                        </tr>
-                    </table>
+                   <div id="contentList">
+
+                   </div>
                 </div>
             </div>
             <div class="row justify-content-center">
@@ -71,11 +53,11 @@
                     <p>Formulaire d'envoie</p>
                     <form method="POST" onchange="verif_panier(this)">
                         <p>
-                            <label>Votre nom </label>:<br><input type="text" name="name" placeholder="Patrick Toutlemonde" required><br>                            
-                            <label>adresse mail </label>:<br><input type="email" name="mail" placeholder="exemple@hotmail.fr" required><br>
-                            <label>Votre numéro de téléphone </label>:<br><input type="tel" name="numtel" placeholder="0123456789"pattern="[0-9]{10,10}" required><br>
-                            <label>Votre adresse postale </label>:<br><input type="text" name="adress" placeholder="42 rue de la caisse" size="40" required><br>
-                            <label>Votre ville de résidence </label>:<br><input type="text" name="ville" placeholder="Bayonne" required><br>
+                            <label>Votre nom </label>:<br><input id="name" type="text" name="name" placeholder="Patrick Toutlemonde" required><br>                            
+                            <label>adresse mail </label>:<br><input id="email" type="email" name="mail" placeholder="exemple@hotmail.fr" required><br>
+                            <label>Votre numéro de téléphone </label>:<br><input id="numtel" type="tel" name="numtel" placeholder="0123456789"pattern="[0-9]{10,10}" required><br>
+                            <label>Votre adresse postale </label>:<br><input id="adress" type="text" name="adress" placeholder="42 rue de la caisse" size="40" required><br>
+                            <label>Votre ville de résidence </label>:<br><input id="ville" type="text" name="ville" placeholder="Bayonne" required><br>
                             <input type="button" value="Valider la commande" id="submitpanier" disabled="true">
                         </p>
                     </form>
@@ -87,7 +69,6 @@
         </footer>
         <script src="../jquery-3.5.1.min.js"></script>
         <script src="../bootstrap/js/bootstrap.js"></script>
-        <script src="../bootstrap/js/blocs.js"></script>
         <script src="./js/panier.js"></script>
     </body>
 </html>

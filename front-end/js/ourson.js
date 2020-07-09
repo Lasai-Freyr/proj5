@@ -2,11 +2,17 @@ const params = new URLSearchParams(window.location.search);
 let identifiant = params.get('_id');
 let products=[];
 let found=[];
+let bear=[];
+btnPanier = document.getElementById("envoiePanier");
+
 listcouleur = document.getElementById("listcouleur");
 console.log(identifiant);
 
 
 getProducts();  
+btnPanier.addEventListener("click",()=>{
+    bear.push(found);
+  window.sessionStorage.setItem('liste',JSON.stringify(bear));})
 
 function getProducts(){
     let req = new XMLHttpRequest();
@@ -22,14 +28,13 @@ function getProducts(){
           }
         }        
         console.log(found);
-        displayProducts();
-        
+        displayProducts();        
     });
     req.setRequestHeader("Content-Type","application/json;charset=UTF-8");
     req.send();
 } 
 
-async function displayProducts(){
+ function displayProducts(){
     
    
     let content ='<div  class="col-12 col-md-6">';
@@ -42,8 +47,13 @@ async function displayProducts(){
 
     
     document.getElementById('shit').innerHTML = content;
+    document.getElementById("idteddy").setAttribute("value",found._id);
+    document.getElementById("nameteddy").setAttribute("value",found.name);
+    document.getElementById("priceteddy").setAttribute("value",found.price);
+    document.getElementById("imgteddy").setAttribute("value",found.imageUrl);
     console.log('remplissage');
     listing();
+  
 }
 function listing(){
     let list=[] = found.colors;

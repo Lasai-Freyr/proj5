@@ -45,14 +45,17 @@
             </div> 
             <div class="col-12 col-md-6" >
                <div >
-                   <form action="">
-                        <p> Ourson en peluche fait main, nourrit au grand air.
+                   <form action="panier.html" method="GET">
+                        <p>
                             <label for="couleur">Quelle Modèle désirez-vous ? </label>
                         </p>
                             <select name="couleur" id="listcouleur">
                             </select>                  
-                     
-                        <input type="button" value="Ajouter au panier">
+                        <input type="hidden" name="_id" id="idteddy" value="">
+                        <input type="hidden" name="name" id="nameteddy" value="">
+                        <input type="hidden" name="price" id="priceteddy" value="">
+                        <input type="hidden" name="imageUrl" id="imgteddy" value="">
+                        <input type="submit" id="envoiePanier" value="Ajouter au panier">
                     </form>                         
                 </div>
 

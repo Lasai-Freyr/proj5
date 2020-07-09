@@ -1,25 +1,81 @@
-
 btn = document.getElementById("submitpanier");
+chName = document.getElementById("name");
+chEmail = document.getElementById("email");
+chNumTel = document.getElementById("numtel");
+chAdress = document.getElementById("adress");
+chVile = document.getElementById("ville");
+contentList = document.getElementById("contentList");
+const params = new URLSearchParams(window.location.search);
+let color = params.get('couleur');
+let identifiant = params.get('_id');
+let name = params.get('name');
+let price = params.get('price');
+let image = params.get('imageUrl');
+let errorColor='rgb('+(222)+','+(43)+','+(31)+')';
+let okColor='rgb('+(31)+','+(210)+','+(222)+')';
+let addlisting=[];
 
-async function surligne(champ, erreur) //fonction de vérification validité du champ//
-{
-   if(erreur)
-      champ.style.backgroundColor = "#fba";
-   else
-      champ.style.backgroundColor = "";
+
+
+
+
+listpanier();
+console.log(identifiant);
+chName.addEventListener('onchange', verifNom(name));
+chEmail.addEventListener('onchange',   verifMail(mail));
+chNumTel.addEventListener('onchange',  verifTel(numtel));
+chAdress.addEventListener('onchange',  verifAdress(adress));
+chVile.addEventListener('onchange',  verifVille(ville));
+verif_panier(f);
+console.log(name);
+
+
+
+
+
+function listpanier(){  
+   let result = window.sessionStorage.getItem('liste');
+   let resultok = JSON.parse(result); 
+   console.log(resultok);
+   let list=[];
+   let eltlist=[color,identifiant,name,price,image];
+   console.log(list);
+   let ligneList="<div>";
+   let newLength = list.push(eltlist);
+   for(let i=0;i<list.length;i++){
+      let ligne=list[i];
+   ligneList+="<div class='row'>";
+  
+   ligneList+=ligne[1];
+   ligneList+=ligne[2];
+   ligneList+='</p>';
+   ligneList+="</div>";
+   console.log(ligne[0]);
+   console.log(ligne[2]);
+   }
+   ligneList+="</div>";
+  
+   contentList.innerHTML+=ligneList;   
 }
+
+
+
+
+
+
+//fonctions pour la   validation du formulaire//
 
  function verifNom(name) //vérification validité du champ nom//
 {   
     var nom = /^[a-zA-Z]{2,}/;
     if(!nom.test(name.value))
    {
-      surligne(name, true);
+      name.style.backgroundColor='#DE2B1F';
       return false;
    }
    else
    {
-      surligne(name, false);
+      name.style.backgroundColor=okColor;
       return true;
    }
 }
@@ -29,12 +85,12 @@ async function surligne(champ, erreur) //fonction de vérification validité du 
    var regex = /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
    if(!regex.test(mail.value))
    {
-      surligne(mail, true);
+      mail.style.backgroundColor='#DE2B1F';
       return false;
    }
    else
    {
-      surligne(mail, false);
+      mail.style.backgroundColor=okColor;
       return true;
    }
 }
@@ -44,12 +100,12 @@ async function surligne(champ, erreur) //fonction de vérification validité du 
     var tel = /^[0-9]{10,10}/;
    if(!tel.test(numtel.value))
    {
-      surligne(numtel, true);
+      numtel.style.backgroundColor='#DE2B1F';
       return false;
    }
    else
    {
-      surligne(numtel, false);
+      numtel.style.backgroundColor=okColor;
       return true;
    }
 }
@@ -59,12 +115,12 @@ async function surligne(champ, erreur) //fonction de vérification validité du 
     var adresse = /^[a-zA-Z0-9._-]{2,}/;
     if(!adresse.test(adress.value))
    {
-      surligne(adress, true);
+      adress.style.backgroundColor='#DE2B1F';
       return false;
    }
    else
    {
-      surligne(adress, false);
+      adress.style.backgroundColor=okColor;
       return true;
    }
 }
@@ -74,12 +130,12 @@ async function surligne(champ, erreur) //fonction de vérification validité du 
     var city = /^[a-zA-Z0-9._-]{2,}/;
     if(!city.test(ville.value))
    {
-      surligne(ville, true);
+      ville.style.backgroundColor='#DE2B1F';
       return false;
    }
    else
    {
-      surligne(ville, false);
+      ville.style.backgroundColor=okColor;
       return true;
    }
 }
