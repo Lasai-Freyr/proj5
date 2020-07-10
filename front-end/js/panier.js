@@ -76,7 +76,7 @@ console.log(keyValue);
 }
 
 function displaylist(){
-  
+   let prixTotal=0;
 
 let ligneList="<div>";
    for (let j=0;j<keyValue+1;j++){
@@ -94,11 +94,15 @@ let ligneList="<div>";
          ligneList+='couleur '+ligne[0];
          ligneList+='<br>'+ligne[3]+'€</p>';
          ligneList+="</div>";
+         let prixUnitaire = parseInt(ligne[3]);
+         prixTotal=prixTotal+prixUnitaire;
          console.log(ligne[0]);
          console.log(ligne[2]);        
          }         
       }
          ligneList+="</div>";
+         ligneList+='<div class="row">';
+         ligneList+='<p> Prix total= '+prixTotal+' €</p></div>';
          contentList.innerHTML+=ligneList;   
          
    }
