@@ -39,9 +39,6 @@ console.log(name);
 
 
 function listpanier(){  
-   let resultb = window.localStorage.getItem('bear');
-   let resultbok = JSON.parse(resultb);
-   console.log(resultbok);
    list.push(eltlist);
    console.log(list);
 let i=1;
