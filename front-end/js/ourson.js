@@ -11,8 +11,9 @@ console.log(identifiant);
 
 getProducts();  
 btnPanier.addEventListener("click",()=>{
+    window.localStorage.getItem('bear');
     bear.push(found);
-  window.sessionStorage.setItem('liste',JSON.stringify(bear));})
+  window.localStorage.setItem('bear',JSON.stringify(bear));})
 
 function getProducts(){
     let req = new XMLHttpRequest();

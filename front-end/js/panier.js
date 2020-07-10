@@ -13,13 +13,18 @@ let price = params.get('price');
 let image = params.get('imageUrl');
 let errorColor='rgb('+(222)+','+(43)+','+(31)+')';
 let okColor='rgb('+(31)+','+(210)+','+(222)+')';
-let addlisting=[];
+let list=[];
+   let eltlist=[color,identifiant,name,price,image];
+let bear=[];
+let keyValue='';
+
 
 
 
 
 
 listpanier();
+//localStorage.clear();  
 console.log(identifiant);
 chName.addEventListener('onchange', verifNom(name));
 chEmail.addEventListener('onchange',   verifMail(mail));
@@ -34,31 +39,70 @@ console.log(name);
 
 
 function listpanier(){  
-   let result = window.sessionStorage.getItem('liste');
+   let resultb = window.localStorage.getItem('bear');
+   let resultbok = JSON.parse(resultb);
+   console.log(resultbok);
+   list.push(eltlist);
+   console.log(list);
+let i=1;
+let key=0;
+do{
+   console.log('key='+key);
+   let varrabl=window.localStorage.getItem(key);
+   let varrablok = JSON.parse(varrabl);
+   console.log(varrablok);
+   if(varrablok==null){
+      window.localStorage.setItem(key,JSON.stringify(list));
+      console.log("ajouté");
+      i=0;
+   }else{
+      console.log("un de présent");      
+      key=key+1;
+      console.log("key prend la valeur "+key) ;     
+   }
+}while(i>0);
+keyValue=key;
+console.log(keyValue);
+
+   console.log(JSON.parse(window.localStorage.getItem(0)));
+   console.log(JSON.parse(window.localStorage.getItem(1)));
+   console.log(JSON.parse(window.localStorage.getItem(2)));
+
+   window.localStorage.setItem('liste',JSON.stringify(list));
+   let result = window.localStorage.getItem('liste');
    let resultok = JSON.parse(result); 
    console.log(resultok);
-   let list=[];
-   let eltlist=[color,identifiant,name,price,image];
-   console.log(list);
-   let ligneList="<div>";
-   let newLength = list.push(eltlist);
-   for(let i=0;i<list.length;i++){
-      let ligne=list[i];
-   ligneList+="<div class='row'>";
-  
-   ligneList+=ligne[1];
-   ligneList+=ligne[2];
-   ligneList+='</p>';
-   ligneList+="</div>";
-   console.log(ligne[0]);
-   console.log(ligne[2]);
-   }
-   ligneList+="</div>";
-  
-   contentList.innerHTML+=ligneList;   
+   displaylist();   
 }
 
+function displaylist(){
+  
 
+let ligneList="<div>";
+   for (let j=0;j<keyValue+1;j++){
+      let keydisplay=j;
+      console.log('keydisplay='+keydisplay);
+      let varrabl=window.localStorage.getItem(keydisplay);
+      let varrablok = JSON.parse(varrabl);
+      console.log(varrablok);   
+         for(let i=0;i<varrablok.length;i++){
+            let ligne=varrablok[i];
+         ligneList+="<div class='row'>";
+        
+         ligneList+='<img src='+ligne[4]+'>';
+         ligneList+=ligne[2]+'<br>';
+         ligneList+='couleur '+ligne[0];
+         ligneList+='<br>'+ligne[3]+'€</p>';
+         ligneList+="</div>";
+         console.log(ligne[0]);
+         console.log(ligne[2]);        
+         }         
+      }
+         ligneList+="</div>";
+         contentList.innerHTML+=ligneList;   
+         
+   }
+   
 
 
 
@@ -160,4 +204,3 @@ function verif_panier(f) //fonction de déverouillage du bouton submit si tout l
    }
    
 }
-
