@@ -23,11 +23,11 @@ btnPanier.addEventListener("click",()=>{
    }else{
  
 let i=1;
-let j=0;
+let j=1;
 do{
     if(list[i]==null){
         console.table(list);   
-        list[i]=newarr;
+        list=list.concat(newarr);
         j=-1
     }else{
         i++;
