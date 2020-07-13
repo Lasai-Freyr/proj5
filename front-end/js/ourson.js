@@ -1,66 +1,40 @@
-const params = new URLSearchParams(window.location.search);
-let identifiant = params.get('_id');
 let products=[];
 let found=[];
-let list=[];
 
 btnPanier = document.getElementById("envoiePanier");
 
 listcouleur = document.getElementById("listcouleur");
 console.log(identifiant);
 
-
+getId();
 getProducts();  
-btnPanier.addEventListener("click",()=>{
-   let newarr =[{name:found.name,description : found.description, color :listcouleur.value,price:found.price, id : found._id, image : found.imageUrl}];
-   console.table(newarr);
-   let longueur = (JSON.parse( localStorage.getItem('list')));
-   list=longueur;
-   console.log(longueur);
-   localStorage.removeItem('list');
-   if (longueur==null){
-       list=newarr;
-   }else{
- 
-let i=1;
-let j=1;
-do{
-    if(list[i]==null){
-        console.table(list);   
-        list=list.concat(newarr);
-        j=-1
-    }else{
-        i++;
-    }
-}while (j>0);
-}
-localStorage.setItem('list',JSON.stringify(list));
-console.table(list);
- 
 
-});
 
 function getProducts(){
-    let req = new XMLHttpRequest();
-    req.open("GET","http://localhost:3000/api/teddies");
-    req.addEventListener("load", () => {
-        products = JSON.parse(req.responseText);
-        console.log(products);
-        for(let i=0; i<products.length;i++){
-           let product = products[i];
-           if (product._id==identifiant){
-                found=product;
-               console.log("boucle en cours");
-          }
-        }        
-        console.table(found);
-        displayProducts();        
-    });
-    req.setRequestHeader("Content-Type","application/json;charset=UTF-8");
-    req.send();
-} 
+    ajax(`http://localhost:3000/api/${identifiant}`)
+    .then((products)=>{
+        displayProducts();
+        btnPanier.addEventListener("click",(e)=>{
+            e.preventDefault();
+         let list = [];
+           console.log(list);
+          
+           if (localStorage.getItem('list')){
+            console.log("deja quelque chose");
+            list = JSON.parse( localStorage.getItem('list'));
+            console.log(list);
+           }
+               list.push(identifiant);
+               console.log("ajouté" + identifiant );
+            localStorage.setItem('list',JSON.stringify(list));
+        
+        console.log('ajout fait'+list);
+        });
+    });        
+        console.table(found);    
+}
 
- function displayProducts(){
+  function displayProducts(){
     
    
     let content ='<div  class="col-12 col-md-6">';
@@ -91,4 +65,9 @@ function listing(){
         opt.value=color;
         listcouleur.appendChild(opt);
     }
+}
+
+function getId(){
+    const params = new URLSearchParams(window.location.search);
+    return params.get('_id');
 }

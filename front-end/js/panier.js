@@ -73,12 +73,10 @@ let ligneList="<div>";
          console.log(ligne[0]);
          console.log(ligne[2]);        
          }         
-      
          ligneList+="</div>";
          ligneList+='<div class="row">';
          ligneList+='<p> Prix total= '+prixTotal+' €</p></div>';
-         contentList.innerHTML+=ligneList;   
-         
+         contentList.innerHTML+=ligneList;            
    }
    
 
