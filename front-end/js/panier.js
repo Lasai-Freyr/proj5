@@ -24,7 +24,6 @@ let keyValue='';
 
 
 listpanier();
-//localStorage.clear();  
 console.log(identifiant);
 chName.addEventListener('onchange', verifNom(name));
 chEmail.addEventListener('onchange',   verifMail(mail));
@@ -39,36 +38,16 @@ console.log(name);
 
 
 function listpanier(){  
-   list.push(eltlist);
-   console.log(list);
-let i=1;
-let key=0;
-do{
-   console.log('key='+key);
-   let varrabl=window.localStorage.getItem(key);
-   let varrablok = JSON.parse(varrabl);
-   console.log(varrablok);
-   if(varrablok==null){
-      window.localStorage.setItem(key,JSON.stringify(list));
-      console.log("ajouté");
-      i=0;
-   }else{
-      console.log("un de présent");      
-      key=key+1;
-      console.log("key prend la valeur "+key) ;     
-   }
-}while(i>0);
-keyValue=key;
-console.log(keyValue);
+  // localStorage.clear();
 
-   console.log(JSON.parse(window.localStorage.getItem(0)));
-   console.log(JSON.parse(window.localStorage.getItem(1)));
-   console.log(JSON.parse(window.localStorage.getItem(2)));
-
-   window.localStorage.setItem('liste',JSON.stringify(list));
-   let result = window.localStorage.getItem('liste');
-   let resultok = JSON.parse(result); 
-   console.log(resultok);
+   console.log(localStorage.getItem(0));
+   console.log(localStorage.getItem(1));
+   console.log(localStorage.getItem(2));
+   console.log(localStorage.getItem(3));
+   console.log(localStorage.getItem(4));
+   console.log(localStorage.getItem(5));
+   console.log(localStorage.getItem(6));
+  
    displaylist();   
 }
 
@@ -76,10 +55,8 @@ function displaylist(){
    let prixTotal=0;
 
 let ligneList="<div>";
-   for (let j=0;j<keyValue+1;j++){
-      let keydisplay=j;
-      console.log('keydisplay='+keydisplay);
-      let varrabl=window.localStorage.getItem(keydisplay);
+ 
+      let varrabl=localStorage.getItem('list');
       let varrablok = JSON.parse(varrabl);
       console.log(varrablok);   
          for(let i=0;i<varrablok.length;i++){
@@ -96,7 +73,7 @@ let ligneList="<div>";
          console.log(ligne[0]);
          console.log(ligne[2]);        
          }         
-      }
+      
          ligneList+="</div>";
          ligneList+='<div class="row">';
          ligneList+='<p> Prix total= '+prixTotal+' €</p></div>';

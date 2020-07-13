@@ -2,7 +2,8 @@ const params = new URLSearchParams(window.location.search);
 let identifiant = params.get('_id');
 let products=[];
 let found=[];
-let bear=[];
+let list=[];
+
 btnPanier = document.getElementById("envoiePanier");
 
 listcouleur = document.getElementById("listcouleur");
@@ -11,9 +12,33 @@ console.log(identifiant);
 
 getProducts();  
 btnPanier.addEventListener("click",()=>{
-    window.localStorage.getItem('bear');
-    bear.push(found);
-  window.localStorage.setItem('bear',JSON.stringify(bear));})
+   let newarr =[{name:found.name,description : found.description, color :listcouleur.value,price:found.price, id : found._id, image : found.imageUrl}];
+   console.table(newarr);
+   let longueur = (JSON.parse( localStorage.getItem('list')));
+   list=longueur;
+   console.log(longueur);
+   localStorage.removeItem('list');
+   if (longueur==null){
+       list=newarr;
+   }else{
+ 
+let i=1;
+let j=0;
+do{
+    if(list[i]==null){
+        console.table(list);   
+        list[i]=newarr;
+        j=-1
+    }else{
+        i++;
+    }
+}while (j>0);
+}
+localStorage.setItem('list',JSON.stringify(list));
+console.table(list);
+ 
+
+});
 
 function getProducts(){
     let req = new XMLHttpRequest();
@@ -28,7 +53,7 @@ function getProducts(){
                console.log("boucle en cours");
           }
         }        
-        console.log(found);
+        console.table(found);
         displayProducts();        
     });
     req.setRequestHeader("Content-Type","application/json;charset=UTF-8");
