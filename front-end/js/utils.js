@@ -20,7 +20,7 @@ function displayProduct(product){
     return`
     <li class="list-unstyled">
         <div class="card border-success col-6  mb-3 mb-md-5">
-            <a href="panier.html?_id=${product._id}" class="stretched-link" id="lien">
+            <a href="ourson.html?_id=${product._id}" class="stretched-link" id="lien">
                 <img src="${product.imageUrl}">
             </a> 
             <div class="card-body">
