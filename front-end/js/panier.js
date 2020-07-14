@@ -5,26 +5,24 @@ chNumTel = document.getElementById("numtel");
 chAdress = document.getElementById("adress");
 chVile = document.getElementById("ville");
 contentList = document.getElementById("contentList");
-const params = new URLSearchParams(window.location.search);
-let color = params.get('couleur');
-let identifiant = params.get('_id');
-let name = params.get('name');
-let price = params.get('price');
-let image = params.get('imageUrl');
 let errorColor='rgb('+(222)+','+(43)+','+(31)+')';
 let okColor='rgb('+(31)+','+(210)+','+(222)+')';
-let list=[];
-   let eltlist=[color,identifiant,name,price,image];
-let bear=[];
-let keyValue='';
+let commandList=[];
+  
 
 
+// localStorage.clear();
+ajax(`http://localhost:3000/api/teddies/`)           
+   .then((products)=>{
+   displaylist();  
+   });
 
+btn.addEventListener("click",(e)=>{   
+   console.log(commandList);
+   localStorage.setItem('command',JSON.stringify(commandList));  
+   console.log('ajout fait'+commandList);
+});
 
-
-
-listpanier();
-console.log(identifiant);
 chName.addEventListener('onchange', verifNom(name));
 chEmail.addEventListener('onchange',   verifMail(mail));
 chNumTel.addEventListener('onchange',  verifTel(numtel));
@@ -34,52 +32,39 @@ verif_panier(f);
 console.log(name);
 
 
-
-
-
-function listpanier(){  
-  // localStorage.clear();
-
-   console.log(localStorage.getItem(0));
-   console.log(localStorage.getItem(1));
-   console.log(localStorage.getItem(2));
-   console.log(localStorage.getItem(3));
-   console.log(localStorage.getItem(4));
-   console.log(localStorage.getItem(5));
-   console.log(localStorage.getItem(6));
-  
-   displaylist();   
-}
-
 function displaylist(){
    let prixTotal=0;
-
-let ligneList="<div>";
- 
-      let varrabl=localStorage.getItem('list');
-      let varrablok = JSON.parse(varrabl);
-      console.log(varrablok);   
-         for(let i=0;i<varrablok.length;i++){
-            let ligne=varrablok[i];
-         ligneList+="<div class='row'>";
-        
-         ligneList+='<img src='+ligne[4]+'>';
-         ligneList+=ligne[2]+'<br>';
-         ligneList+='couleur '+ligne[0];
-         ligneList+='<br>'+ligne[3]+'€</p>';
-         ligneList+="</div>";
-         let prixUnitaire = parseInt(ligne[3]);
-         prixTotal=prixTotal+prixUnitaire;
-         console.log(ligne[0]);
-         console.log(ligne[2]);        
-         }         
-         ligneList+="</div>";
-         ligneList+='<div class="row">';
-         ligneList+='<p> Prix total= '+prixTotal+' €</p></div>';
-         contentList.innerHTML+=ligneList;            
+   let listing=localStorage.getItem('list');
+   let list = JSON.parse(listing);
+   console.log(list);
+   commandList=list;
+   let ligneList="<div>";   
+   for(let i=0;i<list.length;i++){
+      let idproduct=list[i];
+      for(j=0;j<products.length;j++){ 
+         let product=products[j];
+         if(product._id==idproduct){ 
+         
+            ligneList+=
+            `<div class='row'>        
+            <img src=${product.imageUrl}>
+            <p>
+               ${product.name}<br>
+               <br>${product.price}€
+            </p>
+         </div>`
+            let prixUnitaire = parseInt(product.price);
+            prixTotal=prixTotal+prixUnitaire;   
+         }     
+      }
    }
-   
-
+   ligneList+=
+   `</div>
+   <div class="row">
+      <p> Prix total= ${prixTotal} €</p>
+   </div>`
+   contentList.innerHTML+=ligneList; 
+}
 
 
 
