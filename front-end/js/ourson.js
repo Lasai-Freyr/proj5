@@ -37,9 +37,9 @@ function getProduct(){
     
    
     let content =
-    `<div  class="col-12 col-md-6">
-        <div class="image">
-           <img src=${products.imageUrl}>
+    `<div  class="border border-black px-2">
+        <div class="image d-flex justify-content-center mt-1">
+           <img src=${products.imageUrl} class="image-ourson">
         </div>
         <p>
             ${products.name}

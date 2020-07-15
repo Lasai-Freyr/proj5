@@ -1,0 +1,22 @@
+ul{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    li{
+        display: flex;
+        justify-content: center;
+        .image{
+            display: flex;
+           justify-content: center;           
+        }
+    }
+}
+
+li{
+    img{
+        width: 400px;
+        @media all and (max-width:605px) {
+            width: 300px;
+        }
+    }
+}

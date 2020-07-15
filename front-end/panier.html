@@ -13,15 +13,17 @@
     <body>
         <header class=" ">
             <div class="row ">
-                <nav class=" col navbar navbar-expand-lg  bg-success text-white .navbar-light">
+                <nav class=" col navbar navbar-expand-lg text-white .navbar-light">
                     <h2>
-                        Oricono
+                        <a class="nav-link" href="index.html">
+                            <img src="../images/logo.jpg" alt="logo Orinoco" id="logo">
+                        </a>
                     </h2>
                     <button class="navbar-toggler  bg-dark" type="button" data-toggle="collapse" data-target="#navbarContent">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div id="navbarContent" class="collapse navbar-collapse">
-                        <ul  class="navbar-nav">
+                    <div id="navbarContent" class="collapse navbar-collapse justify-content-end">
+                        <ul  class="navbar-nav ">
                             
                         <li class="nav-item active">
                             <a class="nav-link" href="index.html">Accueil</a>
@@ -41,24 +43,24 @@
             <h1 class="text-center">
                 Mon panier.
             </h1>
-            <div class="row justify-content-center">
+            <div class="row justify-content-center col-12">
                 <div class="col-10 justify-content-center ">
                    <div id="contentList">
 
                    </div>
                 </div>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-6  shadow-lg">
+            <div class="row justify-content-center col-12">
+                <div class="col-8  shadow-lg">
                     <p>Formulaire d'envoie</p>
-                    <form method="POST" onchange="verif_panier(this)">
+                    <form action="commandes.html" method="POST"  onchange="verif_panier(this)">
                         <p>
                             <label>Votre nom </label>:<br><input id="name" type="text" name="name" placeholder="Patrick Toutlemonde" required><br>                            
                             <label>adresse mail </label>:<br><input id="email" type="email" name="mail" placeholder="exemple@hotmail.fr" required><br>
                             <label>Votre numéro de téléphone </label>:<br><input id="numtel" type="tel" name="numtel" placeholder="0123456789"pattern="[0-9]{10,10}" required><br>
                             <label>Votre adresse postale </label>:<br><input id="adress" type="text" name="adress" placeholder="42 rue de la caisse" size="40" required><br>
                             <label>Votre ville de résidence </label>:<br><input id="ville" type="text" name="ville" placeholder="Bayonne" required><br>
-                            <input type="button" value="Valider la commande" id="submitpanier" disabled="true">
+                            <input type="submit" value="Valider la commande" id="submitpanier" disabled="true">
                         </p>
                     </form>
                 </div>

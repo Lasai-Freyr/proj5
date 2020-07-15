@@ -17,10 +17,13 @@ ajax(`http://localhost:3000/api/teddies/`)
    displaylist();  
    });
 
-btn.addEventListener("click",(e)=>{   
+btn.addEventListener("click",(e)=>{  
    console.log(commandList);
+   let idOrder =  makeIdOrder(length=8);
+   commandList.unshift(idOrder);
    localStorage.setItem('command',JSON.stringify(commandList));  
-   console.log('ajout fait'+commandList);
+   console.log('commande réalisée '+commandList);
+   localStorage.removeItem("list");
 });
 
 chName.addEventListener('onchange', verifNom(name));
@@ -37,8 +40,8 @@ function displaylist(){
    let listing=localStorage.getItem('list');
    let list = JSON.parse(listing);
    console.log(list);
-   commandList=list;
-   let ligneList="<div>";   
+   
+   let ligneList="<div class='d-flex justify-content-center'>";   
    for(let i=0;i<list.length;i++){
       let idproduct=list[i];
       for(j=0;j<products.length;j++){ 
@@ -46,13 +49,17 @@ function displaylist(){
          if(product._id==idproduct){ 
          
             ligneList+=
-            `<div class='row'>        
-            <img src=${product.imageUrl}>
-            <p>
-               ${product.name}<br>
-               <br>${product.price}€
-            </p>
-         </div>`
+            `<div class='row border border-dark col-10 col-lg-8 px-0'> 
+               <div class="col-6" >
+                  <img src=${product.imageUrl} class="image-panier">
+               </div>
+               <div class="col-6 text-right mt-3" id="text">
+                  <p>
+                     ${product.name}<br>
+                     ${product.price} €
+                  </p>
+               </div>
+            </div>`
             let prixUnitaire = parseInt(product.price);
             prixTotal=prixTotal+prixUnitaire;   
          }     
@@ -60,13 +67,21 @@ function displaylist(){
    }
    ligneList+=
    `</div>
-   <div class="row">
-      <p> Prix total= ${prixTotal} €</p>
+   <div class="row col-12 d-flex text-right px-0 mx-0">
+      <div class="col-11 col-lg-10 px-3">
+         <p> Prix total= ${prixTotal} €</p>
+      </div>
    </div>`
-   contentList.innerHTML+=ligneList; 
+   contentList.innerHTML+=ligneList;
+   commandList.push(prixTotal); 
+   commandList.push(list);
 }
 
-
+function makeIdOrder(length=8){
+   let number = Math.random().toString(20).substr(2,length);
+   let idcom = "ID"+number;
+   return idcom;
+}
 
 //fonctions pour la   validation du formulaire//
 
