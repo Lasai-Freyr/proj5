@@ -18,8 +18,8 @@ function displayProduct(product){
     console.log('pinguin');
     
     return`
-    <li class="list-unstyled  ">
-        <div class="card border-success col-10 col-lg-6  mb-3 mb-md-5">
+    <li class="list-unstyled col-12 col-lg-6">
+        <div class="card border-success col-11   mb-3 mb-md-5">
             <a href="ourson.html?_id=${product._id}" class="stretched-link" id="lien">
                 <div class="image">
                     <img src="${product.imageUrl}" >

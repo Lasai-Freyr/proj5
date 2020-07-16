@@ -1,9 +1,10 @@
 btn = document.getElementById("submitpanier");
 chName = document.getElementById("name");
+chFirstName = document.getElementById("firstname");
 chEmail = document.getElementById("email");
-chNumTel = document.getElementById("numtel");
 chAdress = document.getElementById("adress");
 chVile = document.getElementById("ville");
+formPanier = document.getElementById("formPanier");
 contentList = document.getElementById("contentList");
 let errorColor='rgb('+(222)+','+(43)+','+(31)+')';
 let okColor='rgb('+(31)+','+(210)+','+(222)+')';
@@ -18,20 +19,29 @@ ajax(`http://localhost:3000/api/teddies/`)
    });
 
 btn.addEventListener("click",(e)=>{  
+   e.preventDefault();
    console.log(commandList);
    let idOrder =  makeIdOrder(length=8);
    commandList.unshift(idOrder);
    localStorage.setItem('command',JSON.stringify(commandList));  
    console.log('commande réalisée '+commandList);
    localStorage.removeItem("list");
+   sendContact()
+
 });
 
-chName.addEventListener('onchange', verifNom(name));
-chEmail.addEventListener('onchange',   verifMail(mail));
-chNumTel.addEventListener('onchange',  verifTel(numtel));
-chAdress.addEventListener('onchange',  verifAdress(adress));
-chVile.addEventListener('onchange',  verifVille(ville));
-verif_panier(f);
+chName.addEventListener('input',() =>{
+   verifNom(name)});
+chFirstName.addEventListener('input',()=>{
+ verifPrenom(firstname)});
+chEmail.addEventListener('input',  ()=>{
+ verifMail(email)});
+chAdress.addEventListener('input',()=>{
+     verifAdress(adress)});
+chVile.addEventListener('input', ()=>{
+    verifVille(ville)});
+formPanier.addEventListener('input',()=>{
+verif_panier()});
 console.log(name);
 
 
@@ -41,15 +51,15 @@ function displaylist(){
    let list = JSON.parse(listing);
    console.log(list);
    
-   let ligneList="<div class='d-flex justify-content-center'>";   
+   let ligneList="";   
    for(let i=0;i<list.length;i++){
       let idproduct=list[i];
       for(j=0;j<products.length;j++){ 
          let product=products[j];
          if(product._id==idproduct){ 
          
-            ligneList+=
-            `<div class='row border border-dark col-10 col-lg-8 px-0'> 
+          ligneList+=
+            `<div class='row border border-dark col-12 col-lg-8 px-0 mx-auto'> 
                <div class="col-6" >
                   <img src=${product.imageUrl} class="image-panier">
                </div>
@@ -68,7 +78,7 @@ function displaylist(){
    ligneList+=
    `</div>
    <div class="row col-12 d-flex text-right px-0 mx-0">
-      <div class="col-11 col-lg-10 px-3">
+      <div class="col-12 col-lg-10 px-3">
          <p> Prix total= ${prixTotal} €</p>
       </div>
    </div>`
@@ -88,48 +98,49 @@ function makeIdOrder(length=8){
  function verifNom(name) //vérification validité du champ nom//
 {   
     var nom = /^[a-zA-Z]{2,}/;
-    if(!nom.test(name.value))
+    if(!nom.test(chName.value))
    {
-      name.style.backgroundColor='#DE2B1F';
+      chName.style.backgroundColor='#DE2B1F';
       return false;
    }
    else
    {
-      name.style.backgroundColor=okColor;
+      chName.style.backgroundColor=okColor;
       return true;
    }
 }
 
- function verifMail(mail) //vérification validité du champ email//
+function verifPrenom(firstname) //vérification validité du champ prénom//
+{   
+    var prenom = /^[a-zA-Z]{2,}/;
+    if(!prenom.test(chFirstName.value))
+   {
+      chFirstName.style.backgroundColor='#DE2B1F';
+      return false;
+   }
+   else
+   {
+      chFirstName.style.backgroundColor=okColor;
+      return true;
+   }
+}
+
+ function verifMail(chEmail) //vérification validité du champ email//
 {
    var regex = /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
-   if(!regex.test(mail.value))
+   if(!regex.test(chEmail.value))
    {
-      mail.style.backgroundColor='#DE2B1F';
+      chEmail.style.backgroundColor='#DE2B1F';
       return false;
    }
    else
    {
-      mail.style.backgroundColor=okColor;
+      chEmail.style.backgroundColor=okColor;
       return true;
    }
 }
 
- function verifTel(numtel) //vérification validité du champ numéro de téléphone//
-{
-    var tel = /^[0-9]{10,10}/;
-   if(!tel.test(numtel.value))
-   {
-      numtel.style.backgroundColor='#DE2B1F';
-      return false;
-   }
-   else
-   {
-      numtel.style.backgroundColor=okColor;
-      return true;
-   }
-}
-
+ 
  function verifAdress(adress) //vérification validité du champ adresse postale//
 {
     var adresse = /^[a-zA-Z0-9._-]{2,}/;
@@ -160,15 +171,15 @@ function makeIdOrder(length=8){
    }
 }
 
-function verif_panier(f) //fonction de déverouillage du bouton submit si tout les champs valides//
+function verif_panier() //fonction de déverouillage du bouton submit si tout les champs valides//
 {    
-   var nomOk = verifNom(f.name);
-   var mailOk = verifMail(f.mail);
-   var telOk = verifTel(f.numtel);
-   var adressOk = verifAdress(f.adress);
-   var cityOk = verifVille(f.ville);
+   var nomOk = verifNom(name);
+   var prenomOk = verifPrenom(firstname);
+   var mailOk = verifMail(email);
+   var adressOk = verifAdress(adress);
+   var cityOk = verifVille(ville);
    
-   if(nomOk && mailOk && telOk && adressOk && cityOk)
+   if(nomOk && prenomOk && mailOk && adressOk && cityOk)
    {
       btn.removeAttribute("disabled");
       return true;
@@ -179,4 +190,14 @@ function verif_panier(f) //fonction de déverouillage du bouton submit si tout l
       return false;
    }
    
+}
+
+function sendContact(){
+   let reqContact = new XMLHttpRequest();
+   reqContact.open('POST',`http://localhost:3000/api/teddies/order`);
+   let contact = [{nom: chName.value,prénom:chFirstName.value,adresse:chAdress.value,ville :chVile.value,email:chEmail.value}];
+          
+   console.log(contact);
+   reqContact.setRequestHeader("Content-Type","application/json;charset=UTF-8");
+   reqContact.send(JSON.stringify(contact));
 }

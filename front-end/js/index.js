@@ -8,7 +8,7 @@ ajax("http://localhost:3000/api/teddies")
 
 
 function displayProducts(){
-    let teddyList = "<ul classe='products text-center d-flex align-content-center'>";    
+    let teddyList = "<ul class='products text-center align-content-center col-12'>";    
    for(let i=0;i<products.length; i++){
        console.log('salamandre');
   
