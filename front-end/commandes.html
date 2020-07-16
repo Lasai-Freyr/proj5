@@ -12,8 +12,8 @@
     </head>
     <body>
         <header class=" ">
-            <div class="row ">
-                <nav class=" col navbar navbar-expand-lg text-white .navbar-light">
+            <div class="row">
+                <nav class=" col navbar navbar-expand-lg  navbar-light ">
                     <h2>
                         <a class="nav-link" href="index.html">
                             <img src="../images/logo.jpg" alt="logo Orinoco" id="logo">
@@ -22,27 +22,36 @@
                     <button class="navbar-toggler  bg-dark" type="button" data-toggle="collapse" data-target="#navbarContent">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div id="navbarContent" class="collapse navbar-collapse">
-                        <ul  class="navbar-nav">
-                            
-                        <li class="nav-item active">
-                            <a class="nav-link" href="index.html">Accueil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="panier.html">Mon panier</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="commandes.html">Mes commandes</a>
-                        </li>                       
+                    <div id="navbarContent" class="collapse navbar-collapse justify-content-end">
+                        <ul  class="navbar-nav font-weight-bold h4">                            
+                            <li class="nav-item ">
+                                <a class="nav-link" href="index.html">Accueil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="panier.html">Mon panier</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="commandes.html">Mes commandes</a>
+                            </li>                       
                         </ul>
                     </div>
                 </nav>
-          
+            </div>          
         </header>
+        
         <main>
-            <div class="row col-11 justify-content-center px-0 mx-auto">  
-                <div class="col-11 col-lg-8 px-0" id='content-order'>
-    
+            <div class="row col-8 justify-content-center mx-auto mt-3">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <h2 class="alert-heading">
+                        Merci de votre achat.
+                    </h2>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">x</span>
+                    </button>
+                </div> 
+            </div>
+            <div class="row col-11 justify-content-center px-0 mx-auto"> 
+                <div class="col-11 col-lg-8 px-0" id='content-order'>    
                 </div> 
             </div>
         </main>

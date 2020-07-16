@@ -6,51 +6,46 @@ chAdress = document.getElementById("adress");
 chVile = document.getElementById("ville");
 formPanier = document.getElementById("formPanier");
 contentList = document.getElementById("contentList");
-let errorColor='rgb('+(222)+','+(43)+','+(31)+')';
-let okColor='rgb('+(31)+','+(210)+','+(222)+')';
 let commandList=[];
   
 
 
 // localStorage.clear();
-ajax(`http://localhost:3000/api/teddies/`)           
+ajax(`http://localhost:3000/api/teddies/`)  //fonction appelant les données des produits ours au server         
    .then((products)=>{
    displaylist();  
    });
 
 btn.addEventListener("click",(e)=>{  
-   e.preventDefault();
+  // e.preventDefault();
    console.log(commandList);
    let idOrder =  makeIdOrder(length=8);
    commandList.unshift(idOrder);
    localStorage.setItem('command',JSON.stringify(commandList));  
    console.log('commande réalisée '+commandList);
    localStorage.removeItem("list");
-   sendContact()
-
+   sendContact();
 });
 
-chName.addEventListener('input',() =>{
+chName.addEventListener('onchange',() =>{
    verifNom(name)});
-chFirstName.addEventListener('input',()=>{
+chFirstName.addEventListener('onchange',()=>{
  verifPrenom(firstname)});
-chEmail.addEventListener('input',  ()=>{
+chEmail.addEventListener('onchange',  ()=>{
  verifMail(email)});
-chAdress.addEventListener('input',()=>{
+chAdress.addEventListener('onchange',()=>{
      verifAdress(adress)});
-chVile.addEventListener('input', ()=>{
+chVile.addEventListener('onchange', ()=>{
     verifVille(ville)});
 formPanier.addEventListener('input',()=>{
 verif_panier()});
-console.log(name);
 
-
-function displaylist(){
+function displaylist() // fonction d'affichage de la liste du panier
+{
    let prixTotal=0;
    let listing=localStorage.getItem('list');
    let list = JSON.parse(listing);
-   console.log(list);
-   
+   console.log(list);   
    let ligneList="";   
    for(let i=0;i<list.length;i++){
       let idproduct=list[i];
@@ -87,7 +82,8 @@ function displaylist(){
    commandList.push(list);
 }
 
-function makeIdOrder(length=8){
+function makeIdOrder(length=8) //création du numéro de l'identification de la commande
+{
    let number = Math.random().toString(20).substr(2,length);
    let idcom = "ID"+number;
    return idcom;
@@ -100,12 +96,12 @@ function makeIdOrder(length=8){
     var nom = /^[a-zA-Z]{2,}/;
     if(!nom.test(chName.value))
    {
-      chName.style.backgroundColor='#DE2B1F';
+      chName.setAttribute("class","form-control is-invalid");
       return false;
    }
    else
    {
-      chName.style.backgroundColor=okColor;
+      chName.setAttribute("class","form-control is-valid");
       return true;
    }
 }
@@ -115,12 +111,12 @@ function verifPrenom(firstname) //vérification validité du champ prénom//
     var prenom = /^[a-zA-Z]{2,}/;
     if(!prenom.test(chFirstName.value))
    {
-      chFirstName.style.backgroundColor='#DE2B1F';
+      chFirstName.setAttribute("class","form-control is-invalid");
       return false;
    }
    else
    {
-      chFirstName.style.backgroundColor=okColor;
+      chFirstName.setAttribute("class","form-control is-valid");
       return true;
    }
 }
@@ -130,12 +126,12 @@ function verifPrenom(firstname) //vérification validité du champ prénom//
    var regex = /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
    if(!regex.test(chEmail.value))
    {
-      chEmail.style.backgroundColor='#DE2B1F';
+      chEmail.setAttribute("class","form-control is-invalid");
       return false;
    }
    else
    {
-      chEmail.style.backgroundColor=okColor;
+      chEmail.setAttribute("class","form-control is-valid");
       return true;
    }
 }
@@ -146,12 +142,12 @@ function verifPrenom(firstname) //vérification validité du champ prénom//
     var adresse = /^[a-zA-Z0-9._-]{2,}/;
     if(!adresse.test(adress.value))
    {
-      adress.style.backgroundColor='#DE2B1F';
+      adress.setAttribute("class","form-control is-invalid");
       return false;
    }
    else
    {
-      adress.style.backgroundColor=okColor;
+      adress.setAttribute("class","form-control is-valid");
       return true;
    }
 }
@@ -161,12 +157,12 @@ function verifPrenom(firstname) //vérification validité du champ prénom//
     var city = /^[a-zA-Z0-9._-]{2,}/;
     if(!city.test(ville.value))
    {
-      ville.style.backgroundColor='#DE2B1F';
+      ville.setAttribute("class","form-control is-invalid");
       return false;
    }
    else
    {
-      ville.style.backgroundColor=okColor;
+      ville.setAttribute("class","form-control is-valid");
       return true;
    }
 }
@@ -192,12 +188,12 @@ function verif_panier() //fonction de déverouillage du bouton submit si tout le
    
 }
 
-function sendContact(){
+function sendContact() // envoie des données du client au serveur
+{
    let reqContact = new XMLHttpRequest();
-   reqContact.open('POST',`http://localhost:3000/api/teddies/order`);
-   let contact = [{nom: chName.value,prénom:chFirstName.value,adresse:chAdress.value,ville :chVile.value,email:chEmail.value}];
-          
-   console.log(contact);
+   reqContact.open('POST',`http://localhost:3000/api/order`);
+   let contact = [{"nom": chName.value,"prénom":chFirstName.value,"adresse":chAdress.value,"ville" : chVile.value,"email":chEmail.value}];          
+   console.table(contact);
    reqContact.setRequestHeader("Content-Type","application/json;charset=UTF-8");
    reqContact.send(JSON.stringify(contact));
 }
