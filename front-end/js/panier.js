@@ -191,7 +191,7 @@ function verif_panier() //fonction de déverouillage du bouton submit si tout le
 function sendContact() // envoie des données du client au serveur
 {
    let reqContact = new XMLHttpRequest();
-   reqContact.open('POST',`http://localhost:3000/api/order`);
+   reqContact.open('POST',`http://localhost:3000/api/teddies/order`);
    let contact = [{"nom": chName.value,"prénom":chFirstName.value,"adresse":chAdress.value,"ville" : chVile.value,"email":chEmail.value}];          
    console.table(contact);
    reqContact.setRequestHeader("Content-Type","application/json;charset=UTF-8");
