@@ -1,8 +1,8 @@
 
 ajax(`${basePath}/${ getId()}`)
-.then((product)=>{
-    document.getElementById('contenu').innerHTML = displayProduct(product, 'featured');
-    listColors(product.colors);
+.then((teddy)=>{
+    document.getElementById('contenu').innerHTML = displayProduct(teddy, 'featured');
+    listColors(teddy.colors);
     listenForCartAddition();
     //redirectToCart();
     

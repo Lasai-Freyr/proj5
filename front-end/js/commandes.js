@@ -1,20 +1,20 @@
-ajax(basePath)
-.then((teddies)=>{
-   let prixTotal=0;
-   let list =  get('list');      
-   let ligneList="";  
+let order = get("order");
+console.log(order);
 
-   for (let i=0 ; i < list.length ; i++) { 
-      let productId = list[i];
-      let product = filterProductByID(teddies, productId);
+   let prixTotal=0;
+   let list =  order.products;
+   console.log(list);
+   let ligneList="";
+   document.getElementById('order_id').innerHTML = " numéro de commande : "+order.orderId;
+
+   for (let i=0 ; i < list.length ; i++) {     
    
-      ligneList+=displayProduct(product, 'cart');
+      ligneList+=displayProduct(list[i], 'cart');
       
-      let prixUnitaire = parseInt(product.price);
+      let prixUnitaire = parseInt(list[i].price);
       prixTotal=prixTotal+prixUnitaire;           
    }
    
    ligneList+= `</div>`;
    document.getElementById('total').innerHTML ="Coût total de la commande : "+ prixTotal+" €";
-   document.getElementById("content-order").innerHTML =ligneList;  
-});
+   document.getElementById("content-order").innerHTML =ligneList;

@@ -1,13 +1,13 @@
 ajax(basePath)
-.then((products)=>{   
-    displayProducts(products);
+.then((teddies)=>{   
+    displayProducts(teddies);
 });
 
-function displayProducts(products){
+function displayProducts(teddies){
     let teddyList = "<ul class='products text-center align-content-center col-12'>";    
-   for(let i=0;i<products.length; i++){  
-       let product=products[i];     
-       teddyList +=displayProduct(product , 'card');
+   for(let i=0;i<teddies.length; i++){  
+       let teddy=teddies[i];     
+       teddyList +=displayProduct(teddy , 'card');
    }    
     teddyList +='</ul>';
     document.getElementById('productsListing').innerHTML =  teddyList;
