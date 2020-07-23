@@ -7,15 +7,15 @@ ajax(`${basePath}/${ getId()}`)
     //redirectToCart();
     
 });
-function redirectToCart(){
+function redirectToCart(){ // fonction de redirection vers la page panier
     window.location.href = './panier.html'
 }
-function listenForCartAddition() {
+function listenForCartAddition() { // fonction d'ajout d'évènement au click sur le bouton
     const btnPanier = document.getElementById("envoiePanier");
     btnPanier.addEventListener("click",addProductToCart);
 }
   
-function addProductToCart(e) {
+function addProductToCart(e) { // fonction d'ajout d'un produit dans le panier avec contrôle de doublon
     list = get('list');
 
     if (!list){
@@ -31,7 +31,7 @@ function addProductToCart(e) {
     store( 'list',JSON.stringify(list));        
 }
 
-function listColors(colors){
+function listColors(colors){ //fonction création de la liste déroulante des couleurs de personnalisation du produit
     listcouleur = document.getElementById("listcouleur");
    
     for (let i =0;i<colors.length;i++){
@@ -43,7 +43,7 @@ function listColors(colors){
     }
 }
 
-function getId(){
+function getId(){ // fonction de récupération de la variable Id de l'URL
     const params = new URLSearchParams(window.location.search);
     return params.get('_id');
 }

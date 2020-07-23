@@ -31,16 +31,13 @@ ajax(basePath)  //fonction appelant les données des produits ours au server
          document.getElementById("empty_cart").classList.add("invisible");
          for (let i=0 ; i < list.length ; i++) { 
             let productId = list[i];
-            let teddy = filterProductByID(teddies, productId);
-         
-            ligneList+=displayProduct(teddy, 'cart');
-            
+            let teddy = filterProductByID(teddies, productId);         
+            ligneList+=displayProduct(teddy, 'cart');            
             let prixUnitaire = parseInt(teddy.price);
-            prixTotal=prixTotal+prixUnitaire;           
-         }
-         
+            prixTotal=prixTotal+prixUnitaire;       
+         }         
          ligneList+= `</div>`;
-         document.getElementById('total').innerHTML = prixTotal+" €";
+         document.getElementById('total').innerHTML ="Prix total : "+ prixTotal+" €";
          contentList.innerHTML+=ligneList;
          products=list;  
       }    
@@ -48,20 +45,14 @@ ajax(basePath)  //fonction appelant les données des produits ours au server
 
 btn.addEventListener("click",(e)=>{  
 e.preventDefault();
-
 localStorage.removeItem("list");
 sendContact();
 });
 
-chName.oninput= verifInput;
-chFirstName.oninput= verifInput;
-chEmail.oninput = verifInput;
-chAdress.oninput = verifInput;
-chVille.oninput = verifInput;
 
 formPanier.addEventListener('input',()=>{ verifPanier()});
 
-//Déclaration desfonctions//
+//Déclaration des fonctions//
 
  function verifInput() //vérification validité des champs du formulaire//
 {
@@ -132,6 +123,11 @@ formPanier.addEventListener('input',()=>{ verifPanier()});
 
 function verifPanier() //fonction de déverouillage du bouton submit si tout les champs du formulaire sont valides//
 {
+   chName.onchange= verifInput;
+   chFirstName.onchange= verifInput;
+   chEmail.onchange = verifInput;
+   chAdress.onchange = verifInput;
+   chVille.onchange = verifInput;
    if(nomOk && prenomOk && mailOk && adressOk && cityOk && list.length!==null)
    {
       btn.removeAttribute("disabled");
@@ -141,11 +137,10 @@ function verifPanier() //fonction de déverouillage du bouton submit si tout les
    {
       btn.setAttribute("disabled","true");
       return false;
-   }
-   
+   }   
 }
 
-function sendContact() // envoie des données du client au serveur
+function sendContact() //fonction d'envoie des données du client au serveur et récupération de la réponse
 {
    let req = new XMLHttpRequest();   
    req.open('POST',`${basePath}/order`);
@@ -156,11 +151,11 @@ function sendContact() // envoie des données du client au serveur
       city:chVille.value,
       email:chEmail.value,
    };
-
    var body = {
       "contact":contact,
       "products":products,
    };
+
    req.onreadystatechange = function() {
       console.log(req.status);
       if (req.readyState == 4 && req.status == 201) {

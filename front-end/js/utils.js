@@ -1,6 +1,6 @@
 const basePath = 'http://localhost:3000/api/teddies/';
 
-function ajax(url){
+function ajax(url){ // fonction de récupérations des données de l'API//
     return new Promise((resolve,reject)=>{
         let req = new XMLHttpRequest();
         req.open('GET',url);
@@ -12,8 +12,8 @@ function ajax(url){
         req.send();
     });
 }
-function displayProduct(teddy, type){
-    if (type === 'card') {
+function displayProduct(teddy, type){ //fonction pour afficher le produit
+    if (type === 'card') { // affichage pour la page index
         return`
         <li class="list-unstyled col-12 col-lg-6">
             <div class="card border-success col-11   mb-3 mb-md-5">
@@ -34,7 +34,7 @@ function displayProduct(teddy, type){
         `;
     } 
 
-    if (type === 'featured'){
+    if (type === 'featured'){ // affichage pour la page ourson
         return`
         <div  class="border border-black px-2">
             <div class="image d-flex justify-content-center mt-1">
@@ -47,7 +47,7 @@ function displayProduct(teddy, type){
         </div>`;
     }
 
-    if(type=== 'cart'){
+    if(type=== 'cart'){  // affichage pour les pages panier et commande
         return`
         <div class='row border border-dark col-12 col-lg-8 px-0 mx-auto'> 
             <div class="col-6" >
@@ -63,7 +63,7 @@ function displayProduct(teddy, type){
     }
 }
 
-function filterProductByID(teddies, id){
+function filterProductByID(teddies, id){ // fonction pour filtrer la liste de l'API pour ressortir les produits sélectionnés
     let teddy = teddies.filter(function(teddy){
        if (teddy._id === id){
           return true;
@@ -73,13 +73,13 @@ function filterProductByID(teddies, id){
     return teddy[0];
  }
 
-function get(item) {
+function get(item) { //fonction récupération d'un objet en sauvegarde locale
     if (localStorage.getItem(item)) {
         return JSON.parse(localStorage.getItem(item));
     }
     return null
 }
 
-function store(name, value) {
+function store(name, value) {//fonction d'ajout d'un objet en sauvegarde locale
     localStorage.setItem( name, value);
 }

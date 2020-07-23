@@ -44,7 +44,7 @@
             </h1>
             <div class="row col-8 justify-content-center mx-auto mt-3" id="empty_cart">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <h2 class="alert-heading">
+                    <h2 class="alert-heading text-center">
                         Votre panier est vide, impossible de passer une commande !
                     </h2>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -68,17 +68,17 @@
                     <h2>Formulaire de commande</h2>
                     <form action="commandes.html" method="POST" id="formPanier" >
                         <p>
-                            <label>Nom </label>:<br>
+                            <label>Nom :</label><br>
                             <input id="name" type="text" name="name" placeholder=" Toutlemonde" class="form-control" required><br>
-                            <label>Prénom </label>:<br>
+                            <label>Prénom :</label><br>
                             <input id="firstname" type="text" name="firstname" placeholder="Patrick" class="form-control" required><br>                              
-                            <label>Adresse mail </label>:<br>
+                            <label>Adresse mail :</label><br>
                             <input id="email" type="email" name="mail" placeholder="exemple@hotmail.fr" class="form-control" required><br>
-                            <label>Votre adresse postale </label>:<br>
+                            <label>Adresse postale :</label><br>
                             <input id="adress" type="text" name="adress" placeholder="42 rue de la caisse" class="form-control" size="40" required><br>
-                            <label>Votre ville de résidence </label>:<br>
+                            <label>Ville de résidence :</label><br>
                             <input id="ville" type="text" name="ville" placeholder="Bayonne" class="form-control" required><br><br>
-                            <input type="submit" value="Valider la commande" id="submitpanier" disabled="true">
+                            <input type="submit" value="Valider la commande" id="submitpanier" disabled="true" data-toggle="button" class="btn btn-outline-primary btn-lg mb-3 ml-5">
                         </p>
                     </form>
                 </div>
