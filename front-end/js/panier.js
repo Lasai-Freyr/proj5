@@ -44,7 +44,7 @@ ajax(basePath)  //fonction appelant les données des produits ours au server
    });
 
 btn.addEventListener("click",(e)=>{  
-e.preventDefault();
+//e.preventDefault();
 localStorage.removeItem("list");
 sendContact();
 });
@@ -123,11 +123,11 @@ formPanier.addEventListener('input',()=>{ verifPanier()});
 
 function verifPanier() //fonction de déverouillage du bouton submit si tout les champs du formulaire sont valides//
 {
-   chName.onchange= verifInput;
-   chFirstName.onchange= verifInput;
-   chEmail.onchange = verifInput;
-   chAdress.onchange = verifInput;
-   chVille.onchange = verifInput;
+   chName.oninput= verifInput;
+   chFirstName.oninput= verifInput;
+   chEmail.oninput = verifInput;
+   chAdress.oninput = verifInput;
+   chVille.oninput = verifInput;
    if(nomOk && prenomOk && mailOk && adressOk && cityOk && list.length!==null)
    {
       btn.removeAttribute("disabled");
