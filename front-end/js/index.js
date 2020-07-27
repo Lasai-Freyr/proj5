@@ -1,4 +1,4 @@
-ajax(basePath)
+ajax("GET", basePath)
 .then((teddies)=>{   
     displayProducts(teddies);
 });

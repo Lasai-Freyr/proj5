@@ -1,15 +1,15 @@
 const basePath = 'http://localhost:3000/api/teddies/';
 
-function ajax(url){ // fonction de récupérations des données de l'API//
+function ajax(verb, url, payload = null){ // fonction de récupérations des données de l'API//
     return new Promise((resolve,reject)=>{
         let req = new XMLHttpRequest();
-        req.open('GET',url);
+        req.open(verb ,url);
         req.addEventListener("load",()=>{
-            teddies = JSON.parse(req.responseText);
-            resolve(teddies);
+            response = JSON.parse(req.responseText);
+            resolve(response);
         });
         req.setRequestHeader("Content-Type","application/json;charset=UTF-8");
-        req.send();
+        req.send(payload);
     });
 }
 function displayProduct(teddy, type){ //fonction pour afficher le produit
@@ -47,7 +47,7 @@ function displayProduct(teddy, type){ //fonction pour afficher le produit
         </div>`;
     }
 
-    if(type=== 'cart'){  // affichage pour les pages panier et commande
+    if(type === 'cart'){  // affichage pour les pages panier et commande
         return`
         <div class='row border border-dark col-12 col-lg-8 px-0 mx-auto'> 
             <div class="col-6" >
@@ -64,7 +64,7 @@ function displayProduct(teddy, type){ //fonction pour afficher le produit
 }
 
 function filterProductByID(teddies, id){ // fonction pour filtrer la liste de l'API pour ressortir les produits sélectionnés
-    let teddy = teddies.filter(function(teddy){
+    let teddy = teddies.filter( function(teddy) {
        if (teddy._id === id){
           return true;
        }
@@ -81,5 +81,29 @@ function get(item) { //fonction récupération d'un objet en sauvegarde locale
 }
 
 function store(name, value) {//fonction d'ajout d'un objet en sauvegarde locale
-    localStorage.setItem( name, value);
+    localStorage.setItem( name, JSON.stringify(value));
+}
+
+function displayProductsInCart(products){ //fonction d'affichage de la liste des produits mis en panier
+   let ligneList=""; 
+   for (let i = 0 ; i < products.length ; i++) { 
+     let product = products[i];
+      ligneList+=displayProduct(product, 'cart');   
+   }  
+   ligneList += `</div>`;
+   contentList.innerHTML += ligneList;
+}
+
+function displayTotal(products){
+   document.getElementById('total').innerHTML ="Prix total : "+ CalculPrice(products) +" €"
+}
+
+function CalculPrice(products){ // fonction de calcul du prix total de la commande
+   let prixTotal = [];
+   const reducer = (accumulator, currentValue) => accumulator + currentValue;
+   
+   for (let i = 0 ; i < products.length ; i++) {   
+      prixTotal.push(products[i].price);  
+   }
+   return prixTotal.reduce(reducer);
 }

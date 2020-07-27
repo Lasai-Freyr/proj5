@@ -1,6 +1,6 @@
 
-ajax(`${basePath}/${ getId()}`)
-.then((teddy)=>{
+ajax("GET",`${basePath}/${ getId()}`)
+.then((teddy) => {
     document.getElementById('contenu').innerHTML = displayProduct(teddy, 'featured');
     listColors(teddy.colors);
     listenForCartAddition();
@@ -19,26 +19,25 @@ function addProductToCart(e) { // fonction d'ajout d'un produit dans le panier a
     list = get('list');
 
     if (!list){
-        list=[];
+        list = [];
     }
 
     if ( list.includes( getId())){
         alert("vous ne pouvez achetez qu'un exemplaire de chaque modèle de peluche.");
-    }else{
-        list.push( getId());
-    }   
-    
-    store( 'list',JSON.stringify(list));        
+        return;
+    }
+    list.push( getId());
+    store( 'list', list);        
 }
 
 function listColors(colors){ //fonction création de la liste déroulante des couleurs de personnalisation du produit
     listcouleur = document.getElementById("listcouleur");
    
-    for (let i =0;i<colors.length;i++){
+    for (let i = 0; i < colors.length; i++){
         let color = colors[i];
         let opt = document.createElement("option");
-        opt.textContent=color;
-        opt.value=color;
+        opt.textContent = color;
+        opt.value = color;
         listcouleur.appendChild(opt);
     }
 }

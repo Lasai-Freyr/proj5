@@ -7,55 +7,52 @@ chAdress = document.getElementById("adress");
 chVille = document.getElementById("ville");
 formPanier = document.getElementById("formPanier");
 contentList = document.getElementById("contentList");
-let products=[];
-let list =[];
-var nomOk =0;
-var prenomOk=0;
+
+var nomOk = 0;
+var prenomOk = 0;
 var mailOk = 0;
 var adressOk = 0;
 var cityOk = 0;
-
 //scénario//
 
 // localStorage.clear();
-ajax(basePath)  //fonction appelant les données des produits ours au server         
-   .then((teddies)=>{
-      let prixTotal=0;
-      list =  get('list'); 
-      console.log(list);     
-      let ligneList=""; 
-      if (!list){
+ajax("GET", basePath)  
+   .then((teddies) => {
+      if (!get('list')) {
          document.getElementById("empty_cart").classList.add("visible");
-
-      }else{ 
-         document.getElementById("empty_cart").classList.add("invisible");
-         for (let i=0 ; i < list.length ; i++) { 
-            let productId = list[i];
-            let teddy = filterProductByID(teddies, productId);         
-            ligneList+=displayProduct(teddy, 'cart');            
-            let prixUnitaire = parseInt(teddy.price);
-            prixTotal=prixTotal+prixUnitaire;       
-         }         
-         ligneList+= `</div>`;
-         document.getElementById('total').innerHTML ="Prix total : "+ prixTotal+" €";
-         contentList.innerHTML+=ligneList;
-         products=list;  
-      }    
+         document.getElementById("container_form").classList.add("invisible");
+         return
+      }
+      
+      document.getElementById("empty_cart").classList.add("invisible");
+      products = getProductsInCart(teddies);     
+       
+      displayProductsInCart(products);
+      displayTotal(products);     
    });
 
 btn.addEventListener("click",(e)=>{  
 //e.preventDefault();
-localStorage.removeItem("list");
 sendContact();
+localStorage.removeItem("list");
 });
-
 
 formPanier.addEventListener('input',()=>{ verifPanier()});
 
 //Déclaration des fonctions//
 
- function verifInput() //vérification validité des champs du formulaire//
-{
+function getProductsInCart(teddies){
+   let ProductdIds =  get('list');  
+   let products = [];
+   for (let i = 0 ; i < ProductdIds.length ; i++) { 
+      let productId = ProductdIds[i];
+      let teddy = filterProductByID(teddies, productId);  
+      products.push(teddy);
+   }
+   return products;
+}
+
+ function verifInput(){  //vérification validité des champs du formulaire//
    var regex = /^[a-zA-Z]{2,}/;   
    switch ( this){
       case chName :       //vérification validité des champ nom//
@@ -123,50 +120,35 @@ formPanier.addEventListener('input',()=>{ verifPanier()});
 
 function verifPanier() //fonction de déverouillage du bouton submit si tout les champs du formulaire sont valides//
 {
-   chName.oninput= verifInput;
-   chFirstName.oninput= verifInput;
+   chName.oninput = verifInput;
+   chFirstName.oninput = verifInput;
    chEmail.oninput = verifInput;
    chAdress.oninput = verifInput;
    chVille.oninput = verifInput;
-   if(nomOk && prenomOk && mailOk && adressOk && cityOk && list.length!==null)
+   if(nomOk && prenomOk && mailOk && adressOk && cityOk )
    {
       btn.removeAttribute("disabled");
       return true;
-   }
-   else
-   {
-      btn.setAttribute("disabled","true");
-      return false;
-   }   
+   } 
+   btn.setAttribute("disabled","true");
+   return false;     
 }
 
-function sendContact() //fonction d'envoie des données du client au serveur et récupération de la réponse
-{
-   let req = new XMLHttpRequest();   
-   req.open('POST',`${basePath}/order`);
+function sendContact(){  //fonction d'envoie des données de la commande au serveur et récupération de la réponse
    let contact = {
-      firstName:chFirstName.value,
-      lastName:chName.value,
-      address:chAdress.value,
-      city:chVille.value,
-      email:chEmail.value,
+      firstName : chFirstName.value,
+      lastName : chName.value,
+      address : chAdress.value,
+      city : chVille.value,
+      email : chEmail.value,
    };
    var body = {
-      "contact":contact,
-      "products":products,
+      "contact" : contact,
+      "products" : products,
    };
-
-   req.onreadystatechange = function() {
-      console.log(req.status);
-      if (req.readyState == 4 && req.status == 201) {
-          var response = JSON.parse(req.responseText);
-          console.log(response);
-          store("order",JSON.stringify(response));
-      }else{console.log("retour requete mais problème réponse")}
-  };
-   console.log(JSON.stringify(body));  
-   console.log(body); 
-
-   req.setRequestHeader("Content-Type","application/json;charset=UTF-8");
-   req.send(JSON.stringify(body));
+   ajax("POST", `${basePath}/order`, JSON.stringify(body))
+      .then( (response) => {
+         console.log(response);
+         store("order",response);
+      })
 }
