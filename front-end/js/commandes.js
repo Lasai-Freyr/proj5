@@ -1,6 +1,7 @@
 //déclaration des variables//
 contentList = document.getElementById("content-order");
 let order = get("order");
+console.log(order);
 
 //scénario//
 

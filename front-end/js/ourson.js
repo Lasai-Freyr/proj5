@@ -1,33 +1,31 @@
-
 ajax("GET",`${basePath}/${ getId()}`)
 .then((teddy) => {
     document.getElementById('contenu').innerHTML = displayProduct(teddy, 'featured');
     listColors(teddy.colors);
     listenForCartAddition();
-    //redirectToCart();
+    //redirectTo('panier');
     
 });
-function redirectToCart(){ // fonction de redirection vers la page panier
-    window.location.href = './panier.html'
-}
+
 function listenForCartAddition() { // fonction d'ajout d'évènement au click sur le bouton
     const btnPanier = document.getElementById("envoiePanier");
     btnPanier.addEventListener("click",addProductToCart);
 }
   
 function addProductToCart(e) { // fonction d'ajout d'un produit dans le panier avec contrôle de doublon
-    list = get('list');
+    products = get('list');
 
-    if (!list){
-        list = [];
+    if (!products){
+        products = [];
     }
 
-    if ( list.includes( getId())){
+    if ( products.includes( getId())){
         alert("vous ne pouvez achetez qu'un exemplaire de chaque modèle de peluche.");
         return;
     }
-    list.push( getId());
-    store( 'list', list);        
+
+    products.push( getId());
+    store(  'list', products );        
 }
 
 function listColors(colors){ //fonction création de la liste déroulante des couleurs de personnalisation du produit
