@@ -1,3 +1,5 @@
+//scénario//
+
 ajax("GET",`${basePath}/${ getId()}`)
 .then((teddy) => {
     document.getElementById('contenu').innerHTML = displayProduct(teddy, 'featured');
@@ -7,9 +9,10 @@ ajax("GET",`${basePath}/${ getId()}`)
     
 });
 
+//Déclaration des fonctions//
+
 function listenForCartAddition() { // fonction d'ajout d'évènement au click sur le bouton
-    const btnPanier = document.getElementById("envoiePanier");
-    btnPanier.addEventListener("click",addProductToCart);
+    document.getElementById("envoiePanier").addEventListener("click",addProductToCart);
 }
   
 function addProductToCart(e) { // fonction d'ajout d'un produit dans le panier avec contrôle de doublon

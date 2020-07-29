@@ -17,25 +17,20 @@ ajax("GET", basePath)
       document.getElementById("empty_cart").classList.add("invisible");
       products = getProductsInCart(teddies);     
        
-      displayProductsInCart(products);
-      displayTotal(products);
+      displayProductsInCart(products);// fonction dans utils.js
+      displayTotal(products);// fonction dans utils.js
 });
 
 btn.addEventListener("click",(e) =>  {  
-sendContact();
-});
-
-formPanier.addEventListener('input',() =>  { 
-   btn.setAttribute("disabled","true");
-
-   if (verifPanier()) {      
-      btn.removeAttribute("disabled");
+   if (isPanierValid()) {  
+      sendContact();
    }
+
 });
 
 //Déclaration des fonctions//
 
-function getProductsInCart(teddies) {
+function getProductsInCart(teddies) {// fonction pour récupéré les données des produit en fonction des id sauvegardés dans list
    let ProductdIds =  get('list');  
    let products = [];
 
@@ -67,14 +62,18 @@ function getProductsInCart(teddies) {
    return status;
 }
 
-function verifPanier() //fonction de déverouillage du bouton submit si tout les champs du formulaire sont valides//
-{
-return(
-   isInputValid('name', "text")
-   && isInputValid('firstname', 'text') 
-   && isInputValid('email', 'email') 
-   && isInputValid('address', 'address')
-   && isInputValid('ville', 'text') );    
+function isPanierValid() //fonction de déverouillage du bouton submit si tout les champs du formulaire sont valides//
+{  let testName = isInputValid('name', "text");
+   let testFirstname = isInputValid('firstname', 'text'); 
+   let testEmail = isInputValid('email', 'email') ;
+   let testAddress = isInputValid('address', 'address');
+   let testVille = isInputValid('ville', 'text')
+
+   if(testName && testFirstname && testEmail && testAddress && testVille)  {
+         return true;
+      }else{
+         return false;
+      }
 }
 
 function sendContact()  {  //fonction d'envoie des données de la commande au serveur et récupération de la réponse
@@ -95,12 +94,12 @@ function sendContact()  {  //fonction d'envoie des données de la commande au se
       .then( (response) => {
          console.log(response);
          store("order",response);
-         remove("list");
+         remove("list"); 
          redirectTo('commandes');
       })
 }
 
-function filterProductByID(teddies, id){ // fonction pour filtrer la liste de l'API pour ressortir les produits sélectionnés
+function filterProductByID(teddies, id){ // fonction pour filtrer la liste de l'API pour ressortir le produit sélectionné
    let teddy = teddies.filter( function(teddy) {
 
       if (teddy._id === id){
