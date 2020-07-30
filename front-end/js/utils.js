@@ -18,7 +18,7 @@ function displayProduct(teddy, type)    { //fonction pour afficher le produit
         return`
         <li class="list-unstyled col-12 col-lg-6">
             <div class="card border-success col-11   mb-3 mb-md-5">
-                <a href="ourson.html?_id=${teddy._id}" class="stretched-link" id="lien">
+                <a href="produit.html?_id=${teddy._id}" class="stretched-link" id="lien">
                     <div class="image">
                         <img src="${teddy.imageUrl}" >
                     </div>

@@ -1,8 +1,10 @@
+let teddyName = "";
 //scénario//
 
 ajax("GET",`${basePath}/${ getId()}`)
 .then((teddy) => {
     document.getElementById('contenu').innerHTML = displayProduct(teddy, 'featured');
+    teddyName = teddy.name;
     listColors(teddy.colors);
     listenForCartAddition();
     //redirectTo('panier');
@@ -28,7 +30,8 @@ function addProductToCart(e) { // fonction d'ajout d'un produit dans le panier a
     }
 
     products.push( getId());
-    store(  'list', products );        
+    store(  'list', products );
+    alertTeddyInCart();        
 }
 
 function listColors(colors){ //fonction création de la liste déroulante des couleurs de personnalisation du produit
@@ -46,4 +49,9 @@ function listColors(colors){ //fonction création de la liste déroulante des co
 function getId(){ // fonction de récupération de la variable Id de l'URL
     const params = new URLSearchParams(window.location.search);
     return params.get('_id');
+}
+
+function alertTeddyInCart() {
+    document.getElementById("prodct_bought").classList.remove("invisible");
+    document.getElementById("text_alert").innerHTML = ` ${teddyName} est ajouté à votre panier!`;
 }
