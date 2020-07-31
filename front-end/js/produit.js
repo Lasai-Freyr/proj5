@@ -53,5 +53,5 @@ function getId(){ // fonction de récupération de la variable Id de l'URL
 
 function alertTeddyInCart() {
     document.getElementById("prodct_bought").classList.remove("invisible");
-    document.getElementById("text_alert").innerHTML = ` ${teddyName} est ajouté à votre panier!`;
+    document.getElementById("text_alert").innerHTML = ` ${teddyName} est ajouté à votre panier !`;
 }
