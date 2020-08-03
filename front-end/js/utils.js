@@ -30,7 +30,7 @@ function displayProduct(teddy, type)    { //fonction pour afficher le produit
                         ${teddy.description}
                     </p>
                 </div>
-        </div>
+            </div>
         </li>
         `;
     } 
@@ -73,11 +73,11 @@ function displayProductsInCart(products){ //fonction d'affichage de la liste des
    }  
 
    ligneList += `</div>`;
-   contentList.innerHTML += ligneList;
+   document.getElementById("content_cart").innerHTML += ligneList;
 }
 
 function displayTotal(products){ 
-   document.getElementById('total').innerHTML = "Prix total : "+ countTotal(products) +" €"
+   document.getElementById('total').innerHTML = `Prix total : ${countTotal(products)} €`
 }
 
 function countTotal(products){ // fonction de calcul du prix total de la commande   
@@ -87,4 +87,14 @@ function countTotal(products){ // fonction de calcul du prix total de la command
 
 function redirectTo(page)   {
    window.location.href = `./${page}.html`;
+}
+
+function makeVisible(id)     {
+    document.getElementById(id).classList.remove("invisible");
+    document.getElementById(id).classList.add("visible");
+}
+
+function makeInvisible(id)     {
+    document.getElementById(id).classList.add("invisible");
+    document.getElementById(id).classList.remove("visible");
 }

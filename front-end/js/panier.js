@@ -1,27 +1,22 @@
-//déclaration des variables//
-btn = document.getElementById("submitpanier");
-formPanier = document.getElementById("formPanier");
-contentList = document.getElementById("contentList");
-
 //scénario//
 
-// localStorage.clear();
+//localStorage.clear();
 ajax("GET", basePath)  
    .then((teddies) => {
       if (!get('list')) {
-         document.getElementById("empty_cart").classList.add("visible");
-         document.getElementById("container_form").classList.add("invisible");
+        makeVisible("empty_cart");
+         makeInvisible("container_form");
          return
       }
       
-      document.getElementById("empty_cart").classList.add("invisible");
+      makeInvisible("empty_cart");
       products = getProductsInCart(teddies);     
        
       displayProductsInCart(products);// fonction dans utils.js
       displayTotal(products);// fonction dans utils.js
 });
 
-btn.addEventListener("click",(e) =>  {  
+document.getElementById("submitpanier").addEventListener("click",(e) =>  {  
    if (isPanierValid()) {  
       sendContact();
    }
@@ -46,12 +41,15 @@ function getProductsInCart(teddies) {// fonction pour récupéré les données d
  function isInputValid(idElement , type){  //vérification validité des champs du formulaire
    let element = document.getElementById(idElement);
    let value = element.value;
-   let regextext = /^[a-zA-Z]{2,}/;
-   let regexemail = /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
-   let regexaddress = /^[a-zA-Z0-9._-]{2,}/;
+   let regexes = {
+   "text" : /^[a-zA-Z]{2,}/,
+   "email" : /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/,
+   "address" : /^[a-zA-Z0-9._-]{2,}/
+   };
+   
    let status = false;
    
-   status = eval('regex' + type).test(value);
+   status = regexes[type].test(value);
    
    if (!status){
       element.setAttribute("class", "form-control is-invalid");

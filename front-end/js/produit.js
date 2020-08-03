@@ -1,23 +1,18 @@
-let teddyName = "";
 //scénario//
 
 ajax("GET",`${basePath}/${ getId()}`)
 .then((teddy) => {
     document.getElementById('contenu').innerHTML = displayProduct(teddy, 'featured');
-    teddyName = teddy.name;
     listColors(teddy.colors);
-    listenForCartAddition();
+    document.getElementById("envoiePanier").addEventListener("click",() => {
+        addProductToCart(teddy);
     //redirectTo('panier');
-    
+    })
 });
 
 //Déclaration des fonctions//
-
-function listenForCartAddition() { // fonction d'ajout d'évènement au click sur le bouton
-    document.getElementById("envoiePanier").addEventListener("click",addProductToCart);
-}
   
-function addProductToCart(e) { // fonction d'ajout d'un produit dans le panier avec contrôle de doublon
+function addProductToCart(teddy) { // fonction d'ajout d'un produit dans le panier avec contrôle de doublon
     products = get('list');
 
     if (!products){
@@ -31,7 +26,7 @@ function addProductToCart(e) { // fonction d'ajout d'un produit dans le panier a
 
     products.push( getId());
     store(  'list', products );
-    alertTeddyInCart();        
+    alertTeddyInCart(teddy.name);        
 }
 
 function listColors(colors){ //fonction création de la liste déroulante des couleurs de personnalisation du produit
@@ -51,7 +46,7 @@ function getId(){ // fonction de récupération de la variable Id de l'URL
     return params.get('_id');
 }
 
-function alertTeddyInCart() {
-    document.getElementById("prodct_bought").classList.remove("invisible");
-    document.getElementById("text_alert").innerHTML = ` ${teddyName} est ajouté à votre panier !`;
+function alertTeddyInCart(name) {
+    makeVisible("product_bought");
+    document.getElementById("text_alert").innerHTML = ` ${name} est ajouté à votre panier !`;
 }
