@@ -1,3 +1,6 @@
 .image-ourson{
-    width :400px;
+    width: 400px;
+        @media all and (max-width:605px) {
+            width: 300px;
+        }
 }

@@ -92,7 +92,6 @@ function sendContact()  {  //fonction d'envoie des données de la commande au se
 
    ajax("POST", `${basePath}/order`, JSON.stringify(body))
       .then( (response) => {
-         console.log(response);
          store("order",response);
          remove("list"); 
          redirectTo('commandes');
