@@ -35,7 +35,7 @@ function displayProduct(teddy, type)    { //fonction pour afficher le produit
         `;
     } 
 
-    if (type === 'featured'){ // affichage pour la page ourson
+    if (type === 'featured'){ // affichage pour la page produit
         return`
         <div  class="border border-black px-2">
             <div class="image d-flex justify-content-center mt-1">

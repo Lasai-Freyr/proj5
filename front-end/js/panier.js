@@ -16,7 +16,7 @@ ajax("GET", basePath)
       displayTotal(products);// fonction dans utils.js
 });
 
-document.getElementById("submitpanier").addEventListener("click",(e) =>  {  
+document.getElementById("submitpanier").addEventListener("click",() =>  {  
    if (isPanierValid()) {  
       sendContact();
    }
